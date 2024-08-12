@@ -1,3 +1,4 @@
+import { setSession } from "@/pages/utils/auth";
 import { axios } from "@/utils/axios.instance";
 import { ChangeEvent, FC, useCallback, useState } from "react";
 
@@ -8,7 +9,7 @@ const LoginPage: FC = () => {
     event.preventDefault();
 
     const res = await axios.post("/auth/login", formValues);
-    console.log(res);
+    setSession(res.data);
   };
 
   const handleFormInputChange = useCallback((event: ChangeEvent<HTMLInputElement>) => {
