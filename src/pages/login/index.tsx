@@ -1,15 +1,22 @@
 import { setSession } from "@/pages/utils/auth";
 import { axios } from "@/utils/axios.instance";
+import { useRouter } from "next/router";
 import { ChangeEvent, FC, useCallback, useState } from "react";
 
 const LoginPage: FC = () => {
   const [formValues, setFormValues] = useState({ username: "emilys", password: "emilyspass" });
+  const router = useRouter();
 
   const onSubmitHandler = async (event: React.FormEvent) => {
     event.preventDefault();
 
-    const res = await axios.post("/auth/login", formValues);
-    setSession(res.data);
+    try {
+      const res = await axios.post("/auth/login", formValues);
+      setSession(res.data);
+      router.replace("/protected");
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const handleFormInputChange = useCallback((event: ChangeEvent<HTMLInputElement>) => {

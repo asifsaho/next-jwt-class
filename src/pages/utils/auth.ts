@@ -18,3 +18,7 @@ export const getSession = () => {
 export const setSession = (sessionData: TSession) => {
   localStorage.setItem("session", JSON.stringify(sessionData));
 };
+
+export const removeSession = () => {
+  localStorage.removeItem("session");
+};
